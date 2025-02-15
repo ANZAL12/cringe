@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day Cringe Page</title>
+  <style>
+    /* Base Styles */
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #ff7eb3, #ff4d88);
+      font-family: 'Arial', sans-serif;
+      color: white;
+      text-align: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: calc(2rem + 3vw); /* Dynamic font size based on viewport width */
+      animation: heartbeat 1s infinite;
+      margin: 0;
+    }
+
+    p {
+      font-size: calc(1rem + 1vw); /* Dynamic font size based on viewport width */
+      margin-top: 20px;
+    }
+
+    /* Heartbeat Animation */
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    /* Emoji Styles */
+    .emoji {
+      position: absolute;
+      font-size: 2rem;
+      pointer-events: none; /* Prevent emojis from interfering with clicks */
+      animation: float-up 2s linear forwards;
+    }
+
+    /* Float-Up Animation */
+    @keyframes float-up {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      /* Adjust styles for tablets and smaller screens */
+      h1 {
+        font-size: calc(1.5rem + 2vw); /* Slightly smaller font size */
+      }
+      p {
+        font-size: calc(0.8rem + 1vw); /* Slightly smaller font size */
+      }
+    }
+
+    @media (max-width: 480px) {
+      /* Adjust styles for mobile devices */
+      h1 {
+        font-size: calc(1rem + 1.5vw); /* Even smaller font size */
+      }
+      p {
+        font-size: calc(0.6rem + 1vw); /* Even smaller font size */
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>❤️ Be My Valentine ❤️</h1>
+
+  <script>
+    // Array of cringe-worthy emojis
+    const emojis = ['❤️', '💕', '💞', '💓', '💗', '💘', '💝'];
+
+    // Throttle function to limit emoji creation
+    let lastEmojiTime = 0; // Track the last time an emoji was created
+    const emojiThrottleDelay = 200; // Minimum delay between emojis (in milliseconds)
+
+    // Listen for mouse movement
+    document.addEventListener('mousemove', (event) => {
+      const currentTime = Date.now();
+
+      // Only create an emoji if enough time has passed since the last one
+      if (currentTime - lastEmojiTime > emojiThrottleDelay) {
+        lastEmojiTime = currentTime;
+
+        // Create a new emoji element
+        const emoji = document.createElement('div');
+        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.classList.add('emoji');
+
+        // Position the emoji at the cursor's location
+        emoji.style.left = `${event.clientX}px`;
+        emoji.style.top = `${event.clientY}px`;
+
+        // Add the emoji to the body
+        document.body.appendChild(emoji);
+
+        // Remove the emoji after the animation ends
+        emoji.addEventListener('animationend', () => {
+          emoji.remove();
+        });
+      }
+    });
+
+    // Redirect to another page on click
+    document.addEventListener('click', () => {
+      window.location.href = './page1.ejs'; // Replace with your target URL
+    });
+  </script>
+</body>
+</html>

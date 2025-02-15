@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap Demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    /* Button Styling */
+    .interactive-btn {
+      background: linear-gradient(to bottom, #ff7eb3, #ff4d88);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 24px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      font-family: 'Pacifico', cursive;
+    }
+
+    /* Hover Effect */
+    .interactive-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 10px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Focus Effect */
+    .interactive-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Active (Pressed) Effect */
+    .interactive-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Body Styling */
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #ff7eb3, #ff4d88);
+      font-family: 'Arial', sans-serif;
+      color: white;
+      text-align: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Emoji Styles */
+    .emoji {
+      position: absolute;
+      font-size: 2rem;
+      pointer-events: none; /* Prevent emojis from interfering with clicks */
+      animation: float-up 2s linear forwards;
+    }
+
+    /* Float-Up Animation */
+    @keyframes float-up {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Button -->
+  <button class="interactive-btn">GET PICK UP LINE</button>
+
+  <!-- JavaScript for Emoji Pop-Up -->
+  <script>
+    // Array of cringe-worthy emojis
+    const emojis = ['❤️', '💕', '💞', '💓', '💗', '💘', '💝'];
+
+    // Throttle function to limit emoji creation
+    let lastEmojiTime = 0; // Track the last time an emoji was created
+    const emojiThrottleDelay = 200; // Minimum delay between emojis (in milliseconds)
+
+    // Listen for mouse movement
+    document.addEventListener('mousemove', (event) => {
+      const currentTime = Date.now();
+
+      // Only create an emoji if enough time has passed since the last one
+      if (currentTime - lastEmojiTime > emojiThrottleDelay) {
+        lastEmojiTime = currentTime;
+
+        // Create a new emoji element
+        const emoji = document.createElement('div');
+        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.classList.add('emoji');
+
+        // Position the emoji at the cursor's location
+        emoji.style.left = `${event.clientX}px`;
+        emoji.style.top = `${event.clientY}px`;
+
+        // Add the emoji to the body
+        document.body.appendChild(emoji);
+
+        // Remove the emoji after the animation ends
+        emoji.addEventListener('animationend', () => {
+          emoji.remove();
+        });
+      }
+    });
+
+    document.addEventListener('click', () => {
+      window.location.href = './page2.ejs'; // Replace with your target URL
+    });
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
